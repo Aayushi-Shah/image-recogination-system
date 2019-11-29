@@ -9,12 +9,14 @@ export default class UploadFile extends Component{
             <div className=" d-flex justify-content-center align-items-center top">
                 <div className="file-area">
                     <div className="d-flex justify-content-center main-text">
-                        <b>Add Your File Here</b>
+                        <b>Add Your Image Here</b>
                     </div>
                     <div className="d-flex justify-content-center">
                         <img src={file} alt="Upload File" className="file-image"/>
                     </div>
+                    <div className="d-flex justify-content-center align-items-center">
                     <MyDropzone></MyDropzone>
+                    </div>
                 </div>
             </div>
             <div className="bottom">

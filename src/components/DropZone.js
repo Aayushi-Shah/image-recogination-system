@@ -26,8 +26,8 @@ export default class MyDropzone extends Component{
           };
 
         return (
-          <div className="text-center mt-5">
-            <Dropzone onDrop={this.onPreviewDrop} accept="image/*">
+          <div className="text-center mt-4">
+            <Dropzone onDrop={this.onPreviewDrop} accept="image/*" multiple={false}>
               {({getRootProps, getInputProps, isDragActive, isDragReject}) => (
                 <div {...getRootProps({className:"dropzone d-flex justify-content-center align-items-center"})}>
                   <input {...getInputProps()} />
