@@ -1,4 +1,6 @@
 import React from 'react';
+import './scss/index.scss';
+
 import UploadFile from './UploadFile.js'
 
 function App() {
