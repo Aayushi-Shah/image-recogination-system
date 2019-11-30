@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
-import { render } from "react-dom";
+import axios from 'axios';
 import Dropzone from "react-dropzone";
-import request from "superagent";
+import classNames from 'classnames'
 
 export default class MyDropzone extends Component{
     constructor(props) {
@@ -9,13 +9,33 @@ export default class MyDropzone extends Component{
     
         this.state = {
           files: [],
+          disabled: false
         };
       }
 
+      handleSubmit = async () =>{
+      this.setState({disabled: true})
+      let file = this.state.files[0];
+      let data = new FormData();
+      data.append('document', file);
+      try{
+        const respone = await axios.post(`http://localhost:8000/file/upload/`, data, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+      }
+      catch(e){
+        console.log("$$$$$$$$$$$$$$$$$$$$", e)
+      }
+      this.setState({disabled: false})
+    }
+
       onPreviewDrop = (files) => {
-        this.setState({
-          files: this.state.files.concat(files),
-         });
+        files.map(file => {
+          file.preview = URL.createObjectURL(file)
+          this.setState({files : this.state.files.concat(file)})
+        })
       }
     
       render() {
@@ -26,15 +46,19 @@ export default class MyDropzone extends Component{
           };
 
         return (
-          <div className="text-center mt-4">
-            <Dropzone onDrop={this.onPreviewDrop} accept="image/*" multiple={false}>
+          <div className="mt-4">
+            <Dropzone 
+            onDrop={this.onPreviewDrop.bind(this)}
+            accept="image/*"
+            multiple={false}
+            >
               {({getRootProps, getInputProps, isDragActive, isDragReject}) => (
-                <div {...getRootProps({className:"dropzone d-flex justify-content-center align-items-center"})}>
-                  <input {...getInputProps()} />
-                  {!isDragActive ? <span className="drag-content">Drag a file here or <span className="browse">browse</span> for a file to upload</span>: <span className="drag-content">Drop Your File here</span>}
-                  {isDragReject && "File type not accepted, sorry!"}
-                </div>
-              )}
+                  <div {...getRootProps({className:"dropzone d-flex justify-content-center align-items-center"})}>
+                    <input {...getInputProps()} />
+                    {!isDragActive ? <span className="drag-content">Drag a file here or <span className="browse">browse</span> for a file to upload</span>: <span className="drag-content">Drop Your File here</span>}
+                    {isDragReject && "File type not accepted, sorry!"}
+                  </div>
+                )}
             </Dropzone>
             {this.state.files.length > 0 &&
           <Fragment>
@@ -48,8 +72,8 @@ export default class MyDropzone extends Component{
               />
             ))}
             <div className="button-position"> 
-                        <div className="proceed-button d-flex justify-content-center align-items-center"><b>Proceed</b></div>
-                    </div>
+              <button disabled={this.state.disabled} type="submit" onClick={this.handleSubmit} className={!this.state.disabled? "proceed-button d-flex justify-content-center align-items-center": "btn-disabled d-flex justify-content-center align-items-center"} ><i className={this.state.disabled? "fa fa-spinner fa-spin mr-2": ""}></i><b>Proceed</b></button>
+            </div>
           </Fragment>
         }
           </div>
