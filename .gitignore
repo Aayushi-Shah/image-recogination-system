@@ -115,3 +115,4 @@ local_settings.py
 .env
 venv
 db.sqlite3
+Ymir-8feb90f29168.json
