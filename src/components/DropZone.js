@@ -47,7 +47,7 @@ export default class MyDropzone extends Component{
           };
 
         return (
-          <React.Fragment>
+          <Fragment>
             <div className="top-header d-flex justify-content-end align-items-center">
               <span className="history-content" onClick={this.history}><b>Display Previous Results</b></span>
             </div>
@@ -85,14 +85,14 @@ export default class MyDropzone extends Component{
                 />
               ))}
               <div className="cancel-button-position"> 
-                <button disabled={this.state.disabled} type="submit" onClick={this.handleCancel} className={"d-flex justify-content-center align-items-center", !this.state.disabled ? "cancel-button": "cancel-button button-click-disabled"} ><b>Cancel</b></button>
+                <button disabled={this.state.disabled} type="submit" onClick={this.handleCancel} className={`d-flex justify-content-center align-items-center ${!this.state.disabled ? "cancel-button": "cancel-button button-click-disabled"}`} ><b>Cancel</b></button>
               </div>
               <div className="proceed-button-position"> 
-                <button disabled={this.state.disabled} type="submit" onClick={this.handleSubmit} className={!this.state.disabled? "d-flex justify-content-center align-items-center proceed-button ": "d-flex justify-content-center align-items-center btn-disabled"} ><i className={this.state.disabled? "fa fa-spinner fa-spin mr-2": ""}></i><b>Proceed</b></button>
+                <button disabled={this.state.disabled} type="submit" onClick={this.handleSubmit} className={`d-flex justify-content-center align-items-center ${!this.state.disabled ? 'proceed-button' : 'btn-disabled'}`} ><i className={this.state.disabled? "fa fa-spinner fa-spin mr-2": ""}></i><b>Proceed</b></button>
               </div>
             </Fragment>
           }
-        </React.Fragment>
+        </Fragment>
         );
       }
 }

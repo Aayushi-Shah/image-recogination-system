@@ -19,7 +19,7 @@ class uploadFile(APIView):
     
     def post(self, request):
         #set google application credentials in environment variable 
-        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.join(settings.BASE_DIR, "Ymir-d8af5f8a3037.json")
+        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.join(settings.BASE_DIR, "Ymir-87b2cb672723.json")
         
         #get file from request
         file_data = request.FILES.get('document')
